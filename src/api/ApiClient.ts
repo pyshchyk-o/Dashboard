@@ -17,7 +17,6 @@ export class ApiClient {
   ];
 
   public static async fetchUsers(): Promise<User[]> {
-    console.log('-----fetchUsers--->');
     return Promise.resolve(ApiClient.users);
   }
 }
