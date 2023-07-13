@@ -1,5 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+/**
+ * @fetchData - a function that returns a promise of data to be fetched
+ * @key - a unique key to represent and cache the data in AsyncStorage
+ * @expiryTime - (optional) a period of time (in milliseconds) after which the cached data is considered expired. Defaults to 1 hour.
+ */
 
 export const useCachedData = <T,>(
   fetchData: () => Promise<T>,
@@ -44,9 +50,5 @@ export const useCachedData = <T,>(
     }
   };
 
-  useEffect(() => {
-    loadCachedData();
-  }, []);
-
-  return { data, refreshData, isLoading, error };
+  return { data, refreshData, loadCachedData, isLoading, error };
 };

@@ -8,6 +8,7 @@ import {
 
 import Colors from "./theme/Colors";
 import UsersScreen from "./screens/UsersScreen";
+import { UsersProvider } from "./context/UsersContext";
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -23,7 +24,9 @@ function App(): JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
 
-      <UsersScreen />
+      <UsersProvider>
+        <UsersScreen />
+      </UsersProvider>
 
     </SafeAreaView>
   );

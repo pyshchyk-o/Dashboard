@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, StyleSheet, useColorScheme } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, useColorScheme } from 'react-native';
 import Colors from "../theme/Colors";
 
 interface SimpleButtonProps {
@@ -12,9 +12,9 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({ onPress, title }) => {
   const colorScheme = isDarkMode ? Colors.dark : Colors.light;
 
   return (
-    <Pressable style={[styles.button, colorScheme.button]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, colorScheme.button]} onPress={onPress}>
       <Text style={[styles.buttonText, colorScheme.buttonText]}>{title}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

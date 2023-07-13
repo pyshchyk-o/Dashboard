@@ -6,7 +6,7 @@ import {
   Text, TextInput,
   TouchableOpacity,
   useColorScheme,
-  View
+  View,
 } from "react-native";
 
 import Colors, {
@@ -14,6 +14,7 @@ import Colors, {
   mainColorLightGreen,
   mainColorWhite
 } from "../theme/Colors";
+import { debounce, orderBy } from "../utils";
 
 export interface Column<T> {
   field: keyof T;
@@ -39,18 +40,10 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
     ? require('../assets/arrow-down-icon.png')
     : require('../assets/arrow-up-icon.png');
 
-  const debounce = <T extends any[]>(fn: (...args: T) => void, ms = 300) => {
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-    return function (...args: T) {
-      if(timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => fn(...args), ms);
-    };
-  };
-
-  const debouncedSave = debounce((nextValue: string) => setSearchTerm(nextValue), 500);
+  const debouncedSearchTerm = debounce((nextValue: string) => setSearchTerm(nextValue), 500);
 
   useEffect(() => {
-    debouncedSave(search);
+    debouncedSearchTerm(search);
   }, [search]);
 
   useEffect(() => {
@@ -62,18 +55,6 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
     );
     setData(filteredData);
   }, [tableData, searchTerm]);
-
-  const orderBy = (data: T[], column: keyof T, direction: 'asc' | 'desc'): T[] => {
-    return [...data].sort((a, b) => {
-      if (String(a[column]) < String(b[column])) {
-        return direction === 'asc' ? -1 : 1;
-      }
-      if (String(a[column]) > String(b[column])) {
-        return direction === 'asc' ? 1 : -1;
-      }
-      return 0;
-    });
-  };
 
   const sortTable = (column: keyof T) => {
     const newDirection = direction === 'desc' ? 'asc' : 'desc';
@@ -97,7 +78,7 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
               {
                 selectedColumn === column.field ? (
                   <Image source={arrowIcon} style={styles.arrowIcon} />
-                ) : <View style={styles.arrowIcon} />
+                ) : null
               }
             </View>
           </TouchableOpacity>
@@ -181,6 +162,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
   },
   columnHeaderWrapper: {
+    position: "relative",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -193,6 +175,9 @@ const styles = StyleSheet.create({
     textAlign:"center",
   },
   arrowIcon: {
+    position: 'absolute',
+    right: -14,
+    top: 4,
     width: 14,
     height: 14,
   },

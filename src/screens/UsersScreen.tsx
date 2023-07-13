@@ -1,12 +1,13 @@
-import React from "react";
-import { View, StyleSheet, useColorScheme, ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, useColorScheme, View } from "react-native";
 
+import Colors from "../theme/Colors";
+import ErrorState from "../components/ErrorState";
+import LoadingState from "../components/LoadingState";
 import SimpleButton from "../components/SimpleButton";
 import { Column, SortableTable } from "../components/SortableTable";
 import { User } from "../types/user";
-import Colors from "../theme/Colors";
-import { useCachedData } from "../hooks/useCachedData";
-import { ApiClient } from "../api/ApiClient";
+import { useUserData } from "./hooks/useUsersData";
 
 const UsersScreen: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,28 +16,14 @@ const UsersScreen: React.FC = () => {
     { field: 'age', header: 'Age' },
   ];
 
-  const { data: users, refreshData: refreshUsers, isLoading, error } = useCachedData<User[]>(
-    ApiClient.fetchUsers,
-    'userData',
-  );
+  const { users, refreshUsers, isLoading, error } = useUserData();
 
   if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <LoadingState />;
   }
 
   if (error || !users) {
-    return (
-      <View style={styles.container}>
-        <Text>Error occurred while fetching data</Text>
-        <TouchableOpacity onPress={refreshUsers}>
-          <Text>Refresh</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    return <ErrorState onPress={refreshUsers} />;
   }
 
   return (
@@ -49,7 +36,7 @@ const UsersScreen: React.FC = () => {
         data={users}
         columns={columns}
       />
-      <SimpleButton onPress={refreshUsers} title="Refresh Data" />
+      <SimpleButton onPress={refreshUsers} title="Refresh" />
     </View>
   );
 };
