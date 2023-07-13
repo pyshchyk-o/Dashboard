@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, useColorScheme, View } from "react-native";
 
 import Colors from "../theme/Colors";
 import ErrorState from "../components/ErrorState";
+import iconsBundle from "../theme/iconsBundle";
 import LoadingState from "../components/LoadingState";
-import SimpleButton from "../components/SimpleButton";
 import { Column, SortableTable } from "../components/SortableTable";
+import { ImageButton } from "../components/ImageButton";
 import { User } from "../types/user";
 import { useUserData } from "./hooks/useUsersData";
 
@@ -32,11 +33,15 @@ const UsersScreen: React.FC = () => {
         styles.container,
         { backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background },
       ]}>
-      <SortableTable
-        data={users}
-        columns={columns}
+      <ImageButton
+        icon={iconsBundle.refresh}
+        onPress={refreshUsers}
+        style={styles.imageButton}
       />
-      <SimpleButton onPress={refreshUsers} title="Refresh" />
+      <SortableTable
+        columns={columns}
+        data={users}
+      />
     </View>
   );
 };
@@ -45,6 +50,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 30,
+  },
+  imageButton: {
+    alignItems: 'flex-end',
   },
 });
 

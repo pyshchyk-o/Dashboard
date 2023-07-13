@@ -15,6 +15,7 @@ import Colors, {
   mainColorWhite
 } from "../theme/Colors";
 import { debounce, orderBy } from "../utils";
+import iconsBundle from "../theme/iconsBundle";
 
 export interface Column<T> {
   field: keyof T;
@@ -36,9 +37,7 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
   const [search, setSearch] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const arrowIcon = direction === 'desc'
-    ? require('../assets/arrow-down-icon.png')
-    : require('../assets/arrow-up-icon.png');
+  const arrowIcon = direction === 'desc' ? iconsBundle.arrowDown : iconsBundle.arrowUp;
 
   const debouncedSearchTerm = debounce((nextValue: string) => setSearchTerm(nextValue), 500);
 
