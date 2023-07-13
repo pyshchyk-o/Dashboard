@@ -73,7 +73,13 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
             onPress={() => sortTable(column.field)}
           >
             <View style={styles.columnHeaderWrapper}>
-              <Text style={styles.columnHeaderTxt}>{column.header + " "}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode='tail'
+                style={styles.columnHeaderTxt}
+              >
+                {column.header + " "}
+              </Text>
               {
                 selectedColumn === column.field ? (
                   <Image source={arrowIcon} style={styles.arrowIcon} />
@@ -95,6 +101,8 @@ export const SortableTable = <T extends object>({ data: tableData, columns }: So
     >
       {columns.map((column, columnIndex) => (
         <Text
+          numberOfLines={1}
+          ellipsizeMode='tail'
           key={columnIndex}
           style={{
             ...styles.columnRowTxt,
