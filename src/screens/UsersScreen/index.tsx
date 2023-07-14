@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, useColorScheme, View } from "react-native";
 
-import Colors from "../theme/Colors";
-import ErrorState from "../components/ErrorState";
-import iconsBundle from "../theme/iconsBundle";
-import LoadingState from "../components/LoadingState";
-import { Column, SortableTable } from "../components/SortableTable";
-import { ImageButton } from "../components/ImageButton";
-import { User } from "../types/user";
+import colors from "../../theme/colors";
+import ErrorState from "../../components/ErrorState";
+import iconsBundle from "../../theme/iconsBundle";
+import LoadingState from "../../components/LoadingState";
+import { Column, SortableTable } from "../../components/SortableTable/SortableTable";
+import { ImageButton } from "../../components/ImageButton";
+import { User } from "../../types/user";
 import { useUserData } from "./hooks/useUsersData";
 
 const UsersScreen: React.FC = () => {
@@ -31,7 +31,7 @@ const UsersScreen: React.FC = () => {
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background },
+        { backgroundColor: isDarkMode ? colors.dark.background : colors.light.background },
       ]}>
       <ImageButton
         icon={iconsBundle.refresh}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, useColorScheme } from 'react-native';
-import Colors from "../theme/Colors";
+
+import colors from "../theme/colors";
 
 interface SimpleButtonProps {
   onPress: () => void;
@@ -9,7 +10,7 @@ interface SimpleButtonProps {
 
 const SimpleButton: React.FC<SimpleButtonProps> = ({ onPress, title }) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const colorScheme = isDarkMode ? Colors.dark : Colors.light;
+  const colorScheme = isDarkMode ? colors.dark : colors.light;
 
   return (
     <TouchableOpacity style={[styles.button, colorScheme.button]} onPress={onPress}>

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ActivityIndicator, useColorScheme } from "react-native";
-import { mainColorGreen, mainColorLightGreen } from "../theme/Colors";
+import { mainColorGreen, mainColorLightGreen } from "../theme/colors";
 
 const LoadingState: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';

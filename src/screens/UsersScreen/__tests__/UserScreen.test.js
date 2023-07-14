@@ -2,10 +2,10 @@ import React from 'react';
 import { act, create } from 'react-test-renderer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import UsersScreen from '../UsersScreen';
-import { ApiClient } from '../../api/ApiClient';
+import UsersScreen from '../index';
+import { ApiClient } from '../../../api/ApiClient';
 
-jest.mock('../../api/ApiClient');
+jest.mock('../../../api/ApiClient');
 
 describe('UsersScreen', () => {
   beforeEach(() => {

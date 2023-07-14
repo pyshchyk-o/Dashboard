@@ -1,9 +1,9 @@
 import { useEffect, useContext } from 'react';
 
-import { useCachedData } from '../../hooks/useCachedData';
-import { ApiClient } from '../../api/ApiClient';
-import { UsersContext } from '../../context/UsersContext';
-import { FETCH_KEYS} from "../../constants/fetchKeys";
+import { useCachedData } from '../../../hooks/useCachedData';
+import { ApiClient } from '../../../api/ApiClient';
+import { UsersContext } from '../../../context/UsersContext';
+import { FETCH_KEYS} from "../../../constants/fetchKeys";
 
 export const useUserData = () => {
   const { users, setUsers } = useContext(UsersContext);
@@ -30,12 +30,20 @@ export const useUserData = () => {
 
   // Re-fetch data from the api
   const refreshUsers = async () => {
-    await refreshData();
+    try {
+      await refreshData();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Load user data from AsyncStorage or the api
   const loadUsers = async () => {
-    await loadCachedData();
+    try {
+      await loadCachedData();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return { users, isLoading, error, refreshUsers, loadUsers };

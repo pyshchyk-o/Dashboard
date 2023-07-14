@@ -6,7 +6,7 @@ import {
   useColorScheme,
 } from "react-native";
 
-import Colors from "./theme/Colors";
+import colors from "./theme/colors";
 import UsersScreen from "./screens/UsersScreen";
 import { UsersProvider } from "./context/UsersContext";
 
@@ -14,7 +14,7 @@ function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
+    backgroundColor: isDarkMode ? colors.dark.background : colors.light.background,
   };
 
   return (

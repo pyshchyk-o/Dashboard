@@ -1,7 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+
 import SimpleButton from "./SimpleButton";
-import { mainColorBlack } from "../theme/Colors";
+import { mainColorBlack } from "../theme/colors";
 
 type ErrorStateProps = {
   onPress: () => void;
